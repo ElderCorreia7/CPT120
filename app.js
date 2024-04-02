@@ -12,8 +12,9 @@ const conexao = mysql.createConnection({
     host:'localhost',
     user:'root',
     password:'root',
-    database:'projeto'
+    database:'CPT120'
 });
+
 
 // Teste de conexão
 conexao.connect(function(erro){
@@ -23,7 +24,16 @@ conexao.connect(function(erro){
 
 // Rota do servidor
 app.get('/', function(req, res){
-    res.end('Salvee!');
+     //req.clear();
+
+    //Consulta ao banco de dados
+    conexao.query('SELECT * FROM ATIVIDADES', function(err, resultados, campos){
+    if(err) throw err;
+    // Resultados
+    console.log(resultados);
+    // Envia os resultados como resposta ao servidor
+    res.json(resultados);
+    });
 });
 
 // Servidor
